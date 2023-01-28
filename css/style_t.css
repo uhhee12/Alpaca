@@ -1,0 +1,267 @@
+@charset "utf-8";
+body {overflow-x:hidden;}
+
+
+.head-logo img {padding-left:20px;  width:160px;}
+.inHeader {width: 100%; }
+.menuBox {display:none;}
+.page1_txt {  font-size: 3.6rem; }
+.iconBox {}
+.scaleA {display:none;}
+
+
+
+
+
+
+.iconBox li  { width:20%;}
+.iconBox li div p:nth-child(2) { font-size: 16px;}
+.iconBox li div p:nth-child(3) { font-size: 12px;}
+.iconBox li:nth-child(1) div,
+.iconBox li:nth-child(2) div,
+.iconBox li:nth-child(3) div,
+.iconBox li:nth-child(4) div,
+.iconBox li:nth-child(5) div {background-size:36%;}
+
+
+.section3 {background-size: cover;}
+.inbox {width:100%}
+.right_box {margin:6% 20px;}
+.red_btn {margin-top:7.6%;}
+
+.right_box p:nth-child(1) {
+    font-size: 3rem;
+    font-weight: 700;
+    vertical-align: text-bottom;
+    line-height: 100px;
+}
+.right_box p:nth-child(1) img {    width:140px;}
+.right_box p:nth-child(2) {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+.right_box p:nth-child(3) {
+    color: #fff;
+    line-height: 20px;
+    font-size: 14px;
+}
+.section4 {
+    background: url(../images/se2main_02.jpg)no-repeat;
+    width: 100%;    
+    background-size: cover;
+    margin-top: 10%;
+}
+.inbox4 {
+    width: 96%;
+    margin: 0 auto;
+	letter-spacing:-1px;
+}
+.inbox4 h2 {
+    font-size: 3.8rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.inbox4_inner li {
+    width: 31.4%;
+    display: inline-block;
+    margin-right: 2%;
+}
+.inbox4_inner li:last-child { margin-right:0;}
+.inbox4_inner li div.li_intxt_box {	min-height:240px; }
+.inbox4_inner li .li_intxt_box p {
+    font-size: 1rem;
+    line-height: 24px;
+}
+.inbox4_inner li .li_intxt_box p span.red {
+    font-size: 1rem;
+}
+.inbox4_inner li .li_intxt_box h4 {
+    font-size: 1.3rem; 
+    margin-bottom: 12%;
+}
+
+
+.section5 .inbox5 {width:96%;}
+.section5 .inbox5 .txt br { display:none;}
+.sec5_left_box li { width:30%;}
+.sec5_left_box li img { width:100%;}
+.sec5_right_box {  background: url("../images/ggqq.gif") no-repeat 110% 65% / 80% auto; margin-top:15%;}
+
+
+.section6 .inbox6 {width: 100%; margin: 0 auto;}
+.box6_left {width:46%;}
+.box6_left .txtBox { padding: 5% 5% 5% 20%;}
+.box6_left .txtBox P:nth-child(1) {font-size:16px;}
+.box6_left .txtBox P:nth-child(3) {font-size:16px;}
+.box6_left .txtBox P:nth-child(4) {font-size:14px;}
+
+
+.section7 {
+    background: url(../images/main_78.jpg) no-repeat center / cover;       
+}
+
+.mapP {padding-left: 20px;}
+h3 {padding-left: 20px;}
+.topbtnBox {width:100%;}
+.footerBox  {width:100%;}
+.footerBox img {width:150px; padding:0 0 20px 20px;}
+.topbtnBox {padding-right:20px;}
+select.footerSels {position: absolute; right: 20px; top:5%;}
+
+
+.menutab-content {width:100%;margin-bottom:0;}
+.menubg .menutabs {padding: 0;}
+.me1_in_box {min-height: 190px; width: 94%; margin:0 auto;}
+.me1_in_box p:nth-child(2) br {display: none;}
+.menu1_box1 ul li:nth-child(1) {border-left:none;}
+.menu1_box1 ul li:nth-child(4) {border-right:none;}
+
+.menu1_box2 .me1_grayBox { position: relative;  width:100%;
+    padding: 5%;   
+}
+.me1_grayBox p {
+    line-height: 20px;    
+    font-size: 16px;
+}
+.me1_grayBox p br {display:none;}
+.menu1_box2 .me1_bg_img {width:100%;}
+.margin .left_box1-2 {width: 50%; margin:0 2% 0 0;}
+.margin .left_box1-2 p.title { font-size: 24px;}
+.margin .left_box1-2 p { line-height: 24px; font-size: 16px;}
+.margin .left_box1-2 p br {display:none;}
+
+
+.txtrig {}
+.right_imgBox {padding-top:7%;}
+
+.menu1-3 {width:100%;}
+
+.menu1-3img {  width: 80%;}
+
+
+.address {
+    right: 5%;
+    width: 300px;
+}
+
+
+.gray_box { margin-top: 20px;}
+.gray_box .li_Box ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.gray_box .li_Box .list_title { font-size: 1.2rem;}
+.gray_box .li_Box ul li {
+    line-height: 24px;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+}
+.g_P {
+    line-height: 20px;
+    font-size: 15px;
+    
+}
+.sec_2box ul li {width:48.9%; height:150px;}
+
+.sec_2box ul li:nth-child(3),
+.sec_2box ul li:nth-child(4) {margin-top: 15px;}
+.sec_3box li:nth-child(1), 
+.sec_3box li:nth-child(2) {margin-bottom: 0;}
+.sec_3box ul li {min-height:130px; margin:20px 0 0; padding:2.5%; letter-spacing: -0.5px;} 
+
+.menu4 .sec_left_box {
+    width: 100%;
+    padding-right:0;
+}
+.menu4 .sec_right_box {
+    width: 100%; float: none;
+    padding-left:0; margin-bottom: 50px;
+}
+.sec_left_box, .sec_right_box {
+    display: inline-block;
+    border-right: none;
+}
+.menu2_tab2 li {
+    width: 24%;
+    display: inline-flex;
+    margin-right:1%
+}
+
+.menu2_tab2 li div {
+    height: 280px;
+    padding-top: 15px;
+}
+.menu2_tab2 li:nth-child(1) div,
+.menu2_tab2 li:nth-child(2) div,
+.menu2_tab2 li:nth-child(3) div,
+.menu2_tab2 li:nth-child(4) div { background-size: 80% auto;}
+
+
+.menu2_tab2_box2 li div {   
+    width: 90%;
+    min-height:140px;
+}
+.menu2_tab2_box2 li div p {
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.menu3_Box li .list_box p:nth-child(1) { font-size: 1rem;}
+.menu3_Box li .list_box p:nth-child(2) { font-size: 14px;}
+.menu3_Box li .list_box p:nth-child(3) { font-size: 14px;}
+
+.menu3_Box li .list_box a {  
+    width: 50%;
+    line-height: 30px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 7%;
+}
+.more_btn {margin-bottom:50px;}
+.menu3_sub_Box .box1 ul li p:nth-child(2) {padding-left: 5px;}
+.tab_con img {width:100%;}
+
+.menu3-3-box1 li {    
+    width: 31%;
+}
+.menu3-3-box1 li div{
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    padding-top: 7%;
+}
+.menu3-3-box1 li p:nth-child(2){font-size: 16px;}
+.menu3-3-box1 li p:nth-child(3){font-size: 14px;}
+.menu3_sub3_Box div.graphBox { width: 40%;}
+.menu3_sub3_Box div.graphBox img {width:300px; margin-bottom: 3%; }
+.menu3_sub3_Box div.bild_txt {
+    width: 57.2%;
+    margin-left: 2%;
+}
+.menu3_sub3_Box .img-list { width: 49%;}
+.menu3_sub3_Box .box1 iframe {width: 100%;margin-top:0%;}
+
+
+
+.menu3_sub_Box .box1 div.graphBox {
+    width: 100%;
+    text-align: center;
+}
+
+.circle-graph-container{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+canvas {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+    
+    .menu3_sub3_Box .box1 .bbb-box.bild_txt {
+        width: 100%;
+        margin-top: 30px;
+    }
