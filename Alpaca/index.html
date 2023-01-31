@@ -1,0 +1,2528 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="lib/datepicker/datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+    <link type="text/css" rel="stylesheet" href="css/reset.css">
+    <link type="text/css" rel="stylesheet" href="css/guide.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/jscript" src="js/main.js"></script>
+    <script type="text/javascript" src="lib/datepicker/datepicker.min.js"></script>
+    <script type="text/javascript" src="lib/datepicker/datepicker.ko-KR.js"></script>
+    <script type="text/jscript" src="js/calendar.js"></script>
+
+
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            var arr = ['#button-group1', '#button-group2', '#button-group3'];
+            $.each(arr, function (index) {
+                var wrapperId = arr[index];
+                var buttons = $(wrapperId).find('button');
+                buttons.click(function () {
+                    buttons.removeClass('click');
+                    $(this).addClass('click');
+                });
+            });
+
+            $('ul.tabs li').click(function () {
+                var tab_id = $(this).attr('data-tab');
+
+                $('ul.tabs li').removeClass('current');
+                $('.tab-content').removeClass('current');
+
+                $(this).addClass('current');
+                $("#" + tab_id).addClass('current');
+            });
+
+            $('#main-lobtn').click(function () {
+                $('#login-pop').css("display", "block");
+            });
+
+            $('#main-add').click(function () {
+                $('#main-add-box').css("display", "block");
+            });
+
+            $('.slide-up').click(function () {
+                $('.hide-ul').slideToggle(300);
+            }); /*즐겨찾기 슬라이드*/ 
+
+            $('.sub-menu-p').click(function () {
+                $(this).next('.sub-menu-list').slideToggle();
+            }); /*즐겨찾기 설정 오른쪽 박스 슬라이드 */
+
+            $('#book-btn').click(function () {
+                $('#bookmark-pop').css("display", "block");
+            }); /*즐겨찾기  설정팝업*/
+
+            $('#pop-close, .close-box button').click(function () {
+                $('#bookmark-pop').css("display", "none");
+            });/*즐겨찾기 찹업 닫기 */
+
+            $('#work-pop').click(function () {
+                $('#work-list').css("display", "block");
+            }); /*최근작업내역 팝업 */
+
+            $('.main-noti li').click(function () {
+                $('#notice').css("display", "block");
+            }); /*공지사항 팝업 */
+
+
+
+
+        });
+
+        function fnCheckAll(checkBoxID, buttonID) {
+            var elements = document.getElementsByName(checkBoxID);
+            [].forEach.call(elements, function (element) {
+                var btnCheckAll = document.getElementById(buttonID);
+                if (btnCheckAll.checked) {
+                    element.checked = true;
+                } else {
+                    element.checked = false;
+                }
+            });
+        }
+
+    </script>
+
+    <title>알파카 관리자</title>
+
+</head>
+
+<body>
+
+    <header>
+        <a href="main.html"><img src="images/logo.png" class="logo"></a>
+        <ul class="menu">
+            <li><a href="#">물건정보</a>
+                <ul class="sub-menu">
+                    <li><a href="#">빌딩사업부</a></li>
+                    <li><a href="#">주택사업부</a></li>
+                    <li><a href="#">임대사업부</a></li>
+                    <li><a href="#">빌딩관리부</a></li>
+                </ul>
+            </li>
+            <li><a href="#">직원관리</a>
+                <ul class="sub-menu">
+                    <li><a href="#">직원목록</a></li>
+                    <li><a href="#">근태관리</a></li>
+                    <li><a href="#">팀별게시판</a></li>
+                </ul>
+            </li>
+            <li><a href="#">회의실예약</a>
+                <ul class="sub-menu">
+                    <li><a href="#">예약현황</a></li>
+                </ul>
+            </li>
+            <li><a href="#">정보사이트</a>
+                <ul class="sub-menu">
+                    <li><a href="#">정보사이트</a></li>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">자동알림</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="head-rigth">
+            <a href="#" class="yellow-link">미팅모드</a>
+            <div class="set-box">
+                <button type="button" class="set" id="set"><img src="images/icon1.png"></button>
+                <ul class="sub-menu">
+                    <li><a href="#">작업내역</a></li>
+                    <li><a href="#">사용자기록</a></li>
+                    <li><a href="#">결재관리</a></li>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">사용자설정</a></li>
+                    <li><a href="#">공통코드설정</a></li>
+                    <li><a href="#">권한설정</a></li>
+                </ul>
+            </div>
+            <div class="profile">
+                <div class="profile-img"></div>
+                <p>강태무</p>
+                <button type="button" class="down"><img src="images/sel-icon.png"></button>
+                <div class="profile-inner">
+                    <button type="button" class="admin" id="internal">내정보관리</button><br>
+                    <button type="button">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="fff"></div>
+
+    <div class="wrap">
+        <div class="left-menu">
+            <div class="box1">
+                <div class="bookmark">
+                    <p><img src="images/star.png">&nbsp;즐겨찾기</p>
+                    <button type="button" id="book-btn"><img src="images/copy.png"></button>
+                </div>
+                <ul>
+                    <li id="work-pop">최신작업내역</li>
+                    <li><a href="#">임대사업부</a></li>
+                    <li><a href="#">주택사업부</a></li>
+                    <li><a href="">근태관리</a></li>
+                    <li><a href="">공지사항</a></li>
+                </ul>
+                <ul class="hide-ul">
+                    <li><a href="">빌딩관리부</a></li>
+                    <li><a href="">주택사업부</a></li>
+                    <li><a href="">임대사업부</a></li>
+                    <li><a href="">신규건물등록</a></li>
+                    <li><a href="">팀원관리</a></li>
+                </ul>
+                <button type="button" class="slide-up"><img src="images/gg.png"></button>
+            </div>
+
+            <div class="box2">
+                <p>정보 사이트</p>
+                <ul>
+                    <li><a href="">사이트-1</a></li>
+                    <li><a href="">사이트-2</a></li>
+                    <li><a href="">사이트-3</a></li>
+                    <li><a href="">사이트-4</a></li>
+                    <li><a href="">사이트-5</a></li>
+                </ul>
+            </div>
+        </div><!-- left-menu -->
+
+        <div class="content">
+            <div class="main-box1 white">
+                <p class="title">매물현황</p>
+                <ul id="button-group1" class="day-3">
+                    <li><button type="button" class="click">오늘</button></li>
+                    <li><button type="button">이번주</button></li>
+                    <li><button type="button">이번달</button></li>
+                </ul>
+                <div class="current top">
+                    <ul>
+                        <li>
+                            <p>신규등록</p>
+                            <p>133</p>
+                        </li>
+                        <li>
+                            <p>작업중</p>
+                            <p>16</p>
+                        </li>
+                        <li>
+                            <p>완료</p>
+                            <p>157</p>
+                        </li>
+                        <li>
+                            <p>보류</p>
+                            <p>3</p>
+                        </li>
+                        <li>
+                            <p>매각</p>
+                            <p>16</p>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- main-box1 white -->
+
+            <div class="main-box3 white">
+                <div class="sub-box">
+                    <p class="title">일정<span>2020-09-01 ~ 2020-09-30</span></p>
+                    <ul id="button-group3" class="day-3">
+                        <li><button type="button" class="click">오늘</button></li>
+                        <li><button type="button">이번주</button></li>
+                        <li><button type="button">이번달</button></li>
+                    </ul>
+                    <div class="tb-scroll top">
+                        <form>
+                            <table class="schedule">
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="menu" id="checkAll" class="check"
+                                            onclick="fnCheckAll('menu','checkAll')"> <label
+                                            for="checkAll"><span></span></label>
+                                    </th>
+                                    <th>일시</th>
+                                    <th>일정구분</th>
+                                    <th>일정상태</th>
+                                    <th>내용</th>
+                                    <th>작성자</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu1" class="check"> <label
+                                            for="menu1"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu2" class="check"> <label
+                                            for="menu2"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu3" class="check"> <label
+                                            for="menu3"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu4" class="check"> <label
+                                            for="menu4"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu5" class="check"> <label
+                                            for="menu5"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu6" class="check"> <label
+                                            for="menu6"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu7" class="check"> <label
+                                            for="menu7"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu8" class="check"> <label
+                                            for="menu8"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="menu" id="menu9" class="check"> <label
+                                            for="menu9"><span></span></label>
+                                    </td>
+                                    <td>08-08 13:38</td>
+                                    <td>방문상담</td>
+                                    <td>대기</td>
+                                    <td>고객상담</td>
+                                    <td>강태무</td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+                    <div class="main-sc-btn">
+                        <button class="guiBtn btn-add2" id="main-add">추가</button>
+                        <button class="guiBtn btn-delete2">삭제</button>
+                    </div>
+
+                </div>
+                <!-- partial:index.partial.html -->
+                <div class="page">
+                    <!-- Responsive calendar - START -->
+                    <div class="responsive-calendar">
+                        <div class="controls">
+                            <a class="pull-left" data-go="prev">
+                                <div class="btn"><i class="icon-chevron icon-chevron-rotate"></i></div>
+                            </a>
+                            <h4><span data-head-year></span> <span data-head-month></span></h4>
+                            <a class="pull-right" data-go="next">
+                                <div class="btn"><i class="icon-chevron"></i></div>
+                            </a>
+                        </div>
+                        
+                        <div class="day-headers">
+                            <div class="day header">Mon</div>
+                            <div class="day header">Tue</div>
+                            <div class="day header">Wed</div>
+                            <div class="day header">Thu</div>
+                            <div class="day header">Fri</div>
+                            <div class="day header">Sat</div>
+                            <div class="day header">Sun</div>
+                        </div>
+                        <div class="days" data-group="days">
+                            <!-- the place where days will be generated -->
+                        </div>
+                    </div>
+                    <!-- Responsive calendar - END -->
+                    <!-- Placeholder -->
+                    <div class="responsive-calendar-placeholder">
+
+                    </div>
+                </div>
+                <!-- partial -->
+               
+                
+
+            </div><!-- main-box3 -->
+
+            <div class="main-box4 white">
+                <p class="title">로그인 정보</p>
+                <button class="guiBtn btn-Record" id="main-lobtn">로그인기록</button>
+                <div class="sub-box top">
+                    <ul>
+                        <li>
+                            <img src="images/p1.png">
+                            <div class="txt-box">
+                                <p class="name">1팀 손예진 - 사원 -admin</p>
+                                <p>2020-01-01 15:14:11</p>
+                                <p>123.123.123.123</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/p2.png">
+                            <div class="txt-box">
+                                <p class="name">1팀 손예진 - 사원 -admin</p>
+                                <p>2020-01-01 15:14:11</p>
+                                <p>123.123.123.123</p>
+                            </div>
+                        </li>
+                        <li>
+
+                            <img src="images/p3.png">
+                            <div class="txt-box">
+                                <p class="name">1팀 손예진 - 사원 -admin</p>
+                                <p>2020-01-01 15:14:11</p>
+                                <p>123.123.123.123</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- main-box4 -->
+
+            <div class="main-box5 white">
+                <p class="title">Today 회의실<span>2020-09-09</span></p>
+                <div class="top">
+                    <ul class="tabs">
+                        <li class="tab-link current" data-tab="tab-1">1회의실</li>
+                        <li class="tab-link" data-tab="tab-2">2회의실</li>
+                        <li class="tab-link" data-tab="tab-3">3회의실</li>
+                        <li class="tab-link" data-tab="tab-4">4회의실</li>
+                        <li class="tab-link" data-tab="tab-5">5회의실</li>
+                        <li class="tab-link" data-tab="tab-6">6회의실</li>
+                        <li class="tab-link" data-tab="tab-7">7회의실</li>
+                        <li class="tab-link" data-tab="tab-8">8회의실</li>
+                        <li class="tab-link" data-tab="tab-9">9회의실</li>
+                        <li class="tab-link" data-tab="tab-10">10회의실</li>
+                        <li class="tab-link" data-tab="tab-11">11회의실</li>
+                        <li class="tab-link" data-tab="tab-12">12회의실</li>
+                    </ul>
+
+
+                    <div id="tab-1" class="tab-content current">
+                        <p class="tab-title">1회의실 예약현황<a href="#" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                   
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-content">
+                        <p class="tab-title">2회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-content">
+                        <p class="tab-title">3회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-4" class="tab-content">
+                        <p class="tab-title">4회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-5" class="tab-content">
+                        <p class="tab-title">5회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-6" class="tab-content">
+                        <p class="tab-title">6회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-7" class="tab-content">
+                        <p class="tab-title">7회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-8" class="tab-content">
+                        <p class="tab-title">8회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-9" class="tab-content">
+                        <p class="tab-title">9회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                   
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-10" class="tab-content">
+                        <p class="tab-title">10회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-11" class="tab-content">
+                        <p class="tab-title">11회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-12" class="tab-content">
+                        <p class="tab-title">12회의실 예약현황<a href="" class="go-book">예약하기</a></p>
+                        <div class="room">
+                            <table>
+                                <tr>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>13</th>
+                                    <th>14</th>
+                                    <th>15</th>
+                                    <th>16</th>
+                                    <th>17</th>
+                                    <th>18</th>
+                                    <th>19</th>
+                                    <th>20</th>
+                                    <th>21</th>
+                                    <th>22</th>
+                                    <th>23</th>
+                                    <th>24</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms "></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms yellow"></div>
+                                        <div class="rooms"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                    <td>
+                                        <div class="rooms"></div>
+                                        <div class="rooms yellow"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="main-box6 white">
+                <p class="title">공지사항</p>
+                <a href="#" class="wri-img"><img src="images/writing.png" alt="글쓰기이미지"></a>
+                <ul class="main-noti">
+                    <li>
+                        <p class="notice">알파카 관리자 여러분 공지사항바랍니다.</p>
+                        <p class="notice-date">2020-09-09 관리자 홍길동</p>
+                    </li>
+                    <li>
+                        <p class="notice">알파카 관리자 여러분 공지사항바랍니다.</p>
+                        <p class="notice-date">2020-09-09 관리자 홍길동</p>
+                    </li>
+                    <li>
+                        <p class="notice">알파카 관리자 여러분 공지사항바랍니다.</p>
+                        <p class="notice-date">2020-09-09 관리자 홍길동</p>
+                    </li>
+                    <li>
+                        <p class="notice">알파카 관리자 여러분 공지사항바랍니다.</p>
+                        <p class="notice-date">2020-09-09 관리자 홍길동</p>
+                    </li>
+                </ul>
+                <a href="#" class="add">더보기</a>
+            </div>
+        </div>
+
+        <!-- 팝업 -->
+        <div class="pop" id="bookmark-pop">
+            <div class="book-inner white">
+                <form>
+                    <p class="title">즐겨찾기 메뉴 설정</p>
+                    <img src="images/x.png" alt="닫기" id="pop-close">
+                    <div class="top">
+                        <div class="left-box">
+                            <p class="brown-title">나의 즐겨찾기 메뉴</p>
+                            <div class="in-box">
+                                <ul>
+                                    <li>
+                                        <button type="button" class="pm-btn"><img src="images/mmm.png"></button>
+                                        <p>추가된메뉴-1</p>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="pm-btn"><img src="images/mmm.png"></button>
+                                        <p>추가된메뉴-2</p>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="pm-btn"><img src="images/mmm.png"></button>
+                                        <p>추가된메뉴-3</p>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="pm-btn"><img src="images/mmm.png"></button>
+                                        <p>추가된메뉴-4</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="center-box">
+                            <button type="button"><img src="images/btn-right.png"></button><br><br>
+                            <button type="button"><img src="images/btn-left.png"></button>
+                        </div>
+                        <div class="right-box">
+                            <p class="brown-title">전체 메뉴</p>
+                            <div class="in-box">
+                                <ul>
+                                    <li>
+                                        <p class="sub-menu-p"><img src="images/polygon-3.png">물건정보</p>
+                                        <ul class="sub-menu-list">
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>최신작업내역</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>빌딩사업부</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>주택사업부</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <P>임대사업부</P>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>빌딩관리부</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>신규건물등록</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>고객목록</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>최신작업내역</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>신규고객등록</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <p class="sub-menu-p"><img src="images/polygon-3.png">팀원관리</p>
+                                        <ul class="sub-menu-list">
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>팀원목록</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>팀별게시판</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>근태관리</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <p class="sub-menu-p"><img src="images/polygon-3.png">회의실예약</p>
+                                        <ul class="sub-menu-list">
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>예약현황</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <p class="sub-menu-p"><img src="images/polygon-3.png">정보사이트</p>
+                                        <ul class="sub-menu-list">
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>정보사이트</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <p>공지사항</p>
+                                            </li>
+                                            <li><button type="button" class="pm-btn"><img src="images/ppp.png"></button>
+                                                <P>자동알림</P>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bottom-box">
+                            <button type="button" class="fff-btn">초기화</button>
+                            <div class="close-box">
+                                <button type="button" class="fff-btn">취소</button>
+                                <button type="submit" class="yellow-btn">설정완료</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div class="guide-pop" id="login-pop">
+        <div class="guide-pop-inBox">
+            <h3>로그인기록</h3>
+            <img src="images/x.png" class="img-x">
+            <table class="br-tb">
+                <tr>
+                    <th>요청일시</th>
+                    <td>
+                        <input type="text" name="" id="" class="datepicker form date1">
+                        <span class="wave">~</span>
+                        <input type="text" name="" id="" class="datepicker form date1">
+                    </td>
+                </tr>
+                <tr>
+                    <th>팀원명</th>
+                    <td>
+                        <select class="select form" name="" id="" disabled>
+                            <option>1팀</option>
+                        </select>
+                        <select class="select form" name="" id="" disabled>
+                            <option>홍길동</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <table class="guide-table">
+                <tr>
+                    <th>로그인정보</th>
+                    <th>이름</th>
+                    <th>아이디</th>
+                    <th>접속아이피</th>
+                    <th>로그아웃</th>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+                <tr>
+                    <td>2020.08.08 20:24</td>
+                    <td>1팀 강태무</td>
+                    <td>test123</td>
+                    <td>321.456.789.321</td>
+                    <td>2020.08.08 20:24</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="guide-pop" id="main-add-box">
+        <div class="guide-pop-inBox">
+            <h3>일정 입력</h3>
+            <img src="images/x.png" class="img-x">
+            <div class="pop-btn-box">
+                <button type="button" class="guiBtn2 btn-entire" id="aaaddd">취소</button>
+                <button type="submit" class="guiBtn2 btn-bgYellow2-fff">저장</button>
+            </div>
+            <div class="pop-in-inner">
+                <input type="text" name="" id="" class="datepicker form date2">
+                <div class="sel-box">
+                    <img src="images/schedule-icon.png">
+                    <select class="select form sel88p" name="" id="">
+                        <option>일정구분</option>
+                    </select>
+                </div>
+                <div class="sel-box sel-box2">
+                    <img src="images/Schedule-icon2.png">
+                    <select class="select form sel88p" name="" id="">
+                        <option>일정상태</option>
+                    </select>
+                </div>
+                <textarea class="txt-content"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공통팝업-->
+    <div class="guide-pop" id="mian-Internal">
+        <div class="guide-pop-inBox">
+            <h3>내 정보관리</h3>
+            <span class="sub-span">마지막 접속일자 2020년 12월 25일</span>
+            <img src="images/x.png" class="img-x">
+            <div class="pop-btn-box">
+                <button class="guiBtn2 btn-entire">취소</button>
+                <button class="guiBtn2 btn-bgYellow2-fff">저장</button>
+            </div>
+            <div class="both">
+                <div class="left-box">
+                    <!-- 왼쪽박스 -->
+                    <div class="profile-img"></div>
+                    <p class="ti-16-333">강태무</p>
+                    <p class="con-16-999">test123</p>
+                </div>
+
+                <div class="right-box">
+                    <!-- 오른쪽박스 -->
+                    <div class="sel-box">
+                        <img src="images/s-icon1.png">
+                        <span>비밀번호</span>
+                        <input type="password" name="" id="" value="sssss" class="input form">
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/s-icon2.png">
+                        <span>생일</span>
+                        <input type="text" name="" id="" class="datepicker form date3" value="2020-06-17">
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/s-icon1.png">
+                        <span>연락처</span>
+                        <input type="text" name="" id="" value="010-1234-5678" class="input form">
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/Calendar.png">
+                        <span>이메일</span>
+                        <input type="text" name="" id="" value="test123@naver.com" class="input form">
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/s-icon4.png">
+                        <span>소속</span>
+                        <select class="select form" name="" id="">
+                            <option>1팀</option>
+                        </select>
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/s-icon5.png">
+                        <span>직급</span>
+                        <select class="select form" name="" id="">
+                            <option>주임</option>
+                        </select>
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/s-icon6.png">
+                        <span>분류</span>
+                        <select class="select form" name="" id="">
+                            <option>공인중계사</option>
+                        </select>
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/s-icon7.png">
+                        <span>물건용ID</span>
+                        <input type="text" name="" id="" value="test123_dd" class="input form">
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/Schedule-icon2.png">
+                        <span>등록물건/등록고객</span>
+                        <input type="text" name="" id="" value="13건 / 140명" class="input form input100px">
+                    </div>
+                    <div class="sel-box">
+                        <img src="images/Calendar.png">
+                        <span>입사일자</span>
+                        <input type="text" name="" id="" class="datepicker form date3" value="2020-09-09">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공통팝업-->
+    <div class="guide-pop" id="work-list">
+        <div class="guide-pop-inBox">
+            <h3>최신작업내용</h3>
+            <img src="images/x.png" class="img-x">
+            <div class="wsel-box">
+                <select class="select form" name="" id="">
+                    <option>오늘</option>
+                </select>
+                <select class="select form" name="" id="">
+                    <option>1팀 강태무</option>
+                </select>
+            </div>
+            <table class="guide-table">
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">매매가:0원->200,000만원으로 변경gggggg</td>
+                    <td><button type="button" class="guiBtn btn-bgGray2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">매매가:0원->200,000만원으로 변경</td>
+                    <td><button type="button" class="guiBtn btn-bgGray2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con"> 손님이바로매입 손님이바로매입 손님이바로매입</td>
+                    <td><button type="button" class="guiBtn btn-bgBule2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">매매가:0원->200,000만원으로 변경</td>
+                    <td><button type="button" class="guiBtn btn-bgGray2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">손님이바로매입</td>
+                    <td><button type="button" class="guiBtn btn-bgBule2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">매매가:0원->200,000만원으로 변경</td>
+                    <td><button type="button" class="guiBtn btn-bgGray2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con"> 손님이바로매입 손님이바로매입 손님이바로매입</td>
+                    <td><button type="button" class="guiBtn btn-bgBule2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">매매가:0원->200,000만원으로 변경</td>
+                    <td><button type="button" class="guiBtn btn-bgGray2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">손님이바로매입</td>
+                    <td><button type="button" class="guiBtn btn-bgBule2-333">물건정보</button></td>
+                </tr>
+                <tr>
+                    <td>09-09 15:22</td>
+                    <td>1팀 강태무</td>
+                    <td class="td-con">매매가:0원->200,000만원으로 변경</td>
+                    <td><button type="button" class="guiBtn btn-bgGray2-333">물건정보</button></td>
+                </tr>
+
+            </table>
+
+            <div class="page-box">
+                <select class="g-page" name="" id="">
+                    <option>1</option>
+                </select><span class="of">of</span>
+                <label>10</label>
+                <button type="button"><img src="images/shape-1904-copy.png" class="lb-op0Btn"></button>
+                <button type="button"><img src="images/shape-1904-copy.png" class="rb-op1Btn"></button>
+            </div>
+        </div>
+    </div>
+    <!--wrap-->
+
+    <footer>
+        <div class="footer-inner">
+            <p>Copyright(c) www.alpaca-system.com All right reserved.</p>
+            <p>현재 내 아이피 : 222.100.81.95</p>
+        </div>
+    </footer>
+
+
+    <div class="guide-pop" id="notice">
+        <div class="guide-pop-inBox">
+            <h3>공지사항 상세보기</h3>
+            <img src="images/x.png" class="img-x">
+            <div class="pop-btn-box">
+                <div class=" left">
+                    <div class="radio">
+                        <input type="radio" id="public" name="ex_rds">
+                        <label for="public">공개</label>
+                    </div>
+                    <div class="radio small">
+                        <input type="radio" id="nondisclosure" name="ex_rds">
+                        <label for="nondisclosure">비공개</label>
+                    </div>
+                </div>
+                <button class="guiBtn2 btn-entire">취소</button>
+                <button class="guiBtn2 btn-bgYellow2-fff">저장</button>
+            </div>
+
+            <div class="padding20">
+                <div class="board-titBox">
+                    <span class="con-16-999">113</span>
+                    <input type="text" class="board-tit">
+                </div>
+                <p class="con-16-999 txtLeft">2020-01-01 15:00:55</p>
+                <div>
+                    <img src="images/txt.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
