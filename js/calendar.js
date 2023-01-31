@@ -19,7 +19,7 @@
     /**
      *	Calender
      */
-    $(document).ready(function() {
+    $(document).ready(function () {
       var $cal = $('.responsive-calendar');
       $cal.responsiveCalendar({
         events : {
